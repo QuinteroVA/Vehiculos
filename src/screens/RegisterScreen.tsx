@@ -1,11 +1,10 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { View } from "react-native";
-import { Button, MD3Colors, Snackbar, Text, TextInput } from "react-native-paper";
+import { Button, Snackbar, Text, TextInput } from "react-native-paper";
 import { auth } from "../configs/firebaseConfig";
 import { styles } from "../theme/styles";
 import { CommonActions, useNavigation } from "@react-navigation/native";
-
 
 interface RegisterForm{
   email: string,
