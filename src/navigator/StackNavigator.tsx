@@ -7,6 +7,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../configs/firebaseConfig';
 import { ActivityIndicator } from 'react-native-paper';
 import { styles } from '../theme/styles';
+import { View } from 'react-native';
 
 //Interface: Definir las propiedades de las rutas
 interface Routes{
