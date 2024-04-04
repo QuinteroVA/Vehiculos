@@ -97,7 +97,7 @@ export const RegisterScreen = () => {
         right={<TextInput.Icon icon={eyeIcon} onPress={togglePasswordVisibility} />}
       />
       <Button
-        icon="sing-up"
+        icon=""
         mode="contained"
         onPress={() => handlerRegister()}
         style={styles.buttons}>
