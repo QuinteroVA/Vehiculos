@@ -8,6 +8,7 @@ import { auth } from '../configs/firebaseConfig';
 import { ActivityIndicator } from 'react-native-paper';
 import { styles } from '../theme/styles';
 import { View } from 'react-native';
+import { WelcomeScreen } from '../screens/WelcomeScreen';
 
 //Interface: Definir las propiedades de las rutas
 interface Routes{
@@ -28,7 +29,6 @@ export const StackNavigator=()=> {
     onAuthStateChanged(auth, (user)=>{
       if(user){ //Si existe un usuario autenticado
         setIsAuth(true)
-        //console.log("Rutas: "+user);
       }
       setIsLoading(false)
     })
@@ -36,6 +36,7 @@ export const StackNavigator=()=> {
 
   //Arreglo de rutas para el usuario que no está autenticado
 const routesNoAuth: Routes[]=[
+  {name:"Welcome", screen: WelcomeScreen},
   {name:"Login", screen: LoginScreen},
   {name:"Register", screen:RegisterScreen}
 ]
