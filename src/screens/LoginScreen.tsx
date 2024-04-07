@@ -10,13 +10,11 @@ interface LoginForm{
   email: string,
   password: string
 }
-
 interface MessageSnackBar{
   visible: boolean,
   message: string,
   color: string
 }
-
 export const LoginScreen = () => {
   //Hook NBavegación
   const navigation=useNavigation()
@@ -33,19 +31,16 @@ export const LoginScreen = () => {
     message: "",
     color: "#fff"
   })
-  
+  //Función que toma los datos del registro
   const [eyeIcon, setEyeIcon] = useState("eye");
-
   const togglePasswordVisibility = () => {
     setHiddenPassword(!hiddenPassword);
     setEyeIcon(hiddenPassword ? "eye-off" : "eye");
   };
-
   //Función para actualizar datos del formulario
   const handlerSetLoginForm=(key: string, value: string)=>{
     setLoginForm({...loginForm, [key]:value})
   };
-
   //Función que toma los datos del registro
   const handlerLogin = async ()=> {
     if(!loginForm.email || !loginForm.password){

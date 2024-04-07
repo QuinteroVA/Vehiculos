@@ -6,26 +6,24 @@ import { auth } from "../configs/firebaseConfig";
 import { styles } from "../theme/styles";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 
-interface RegisterForm{
+interface RegisterForm {
   email: string,
   password: string
 }
-
-interface MessageSnackBar{
+interface MessageSnackBar {
   visible: boolean,
   message: string,
   color: string
 }
-
 export const RegisterScreen = () => {
   //Hook Navegación
-  const navigation=useNavigation()
+  const navigation = useNavigation()
   //Hook para mostrar la contraseña
   const [hiddenPassword, setHiddenPassword] = useState(true)
   //Hook useState: trabajar con el estado del formulario
-  const [registerForm, setRegisterForm] = useState <RegisterForm>({
-    email:"",
-    password:""
+  const [registerForm, setRegisterForm] = useState<RegisterForm>({
+    email: "",
+    password: ""
   })
   //Hook useState: trabajar con el manejo de mensajes dinámicos
   const [messageSnackBar, setMessageSnackBar] = useState<MessageSnackBar>({
@@ -33,27 +31,25 @@ export const RegisterScreen = () => {
     message: "",
     color: "#fff"
   })
-
+  //Función para animar el ícono de la contraseña
   const [eyeIcon, setEyeIcon] = useState("eye");
-
   const togglePasswordVisibility = () => {
     setHiddenPassword(!hiddenPassword);
     setEyeIcon(hiddenPassword ? "eye-off" : "eye");
   };
-
   //Función para actualizar datos del formulario
-  const handlerSetRegisterForm=(key: string, value: string)=>{
-    setRegisterForm({...registerForm, [key]:value})
+  const handlerSetRegisterForm = (key: string, value: string) => {
+    setRegisterForm({ ...registerForm, [key]: value })
   };
-
   //Función que toma los datos del registro
-  const handlerRegister = async ()=> {
-    if(!registerForm.email || !registerForm.password){
+  const handlerRegister = async () => {
+    if (!registerForm.email || !registerForm.password) {
       //Cambiar estado para visualizar mensaje
       setMessageSnackBar({
         visible: true,
         message: "Complete todos los campos",
-        color:"#962841" })
+        color: "#962841"
+      })
       return;
     }
     //Registrar usuario
@@ -66,13 +62,15 @@ export const RegisterScreen = () => {
       setMessageSnackBar({
         visible: true,
         message: "Registro exitoso",
-        color:"#2d813f" })
+        color: "#2d813f"
+      })
     } catch (e) {
-        console.log(e);
-        setMessageSnackBar({
-          visible: true,
-          message: "No se completó el registro",
-          color:"#962841" })
+      console.log(e);
+      setMessageSnackBar({
+        visible: true,
+        message: "No se completó el registro",
+        color: "#962841"
+      })
     }
   };
 
@@ -84,7 +82,7 @@ export const RegisterScreen = () => {
         label="Correo"
         placeholder="Ingresar Correo"
         style={styles.inputs}
-        onChangeText={(value)=>handlerSetRegisterForm('email', value)}
+        onChangeText={(value) => handlerSetRegisterForm('email', value)}
       />
       <TextInput
         mode="outlined"
@@ -92,7 +90,7 @@ export const RegisterScreen = () => {
         placeholder="Ingresar Contraseña"
         secureTextEntry={hiddenPassword}
         style={styles.inputs}
-        onChangeText={(value)=>handlerSetRegisterForm('password', value)}
+        onChangeText={(value) => handlerSetRegisterForm('password', value)}
         right={<TextInput.Icon icon={eyeIcon} onPress={togglePasswordVisibility} />}
       />
       <Button
@@ -104,14 +102,14 @@ export const RegisterScreen = () => {
       </Button>
       <Snackbar
         visible={messageSnackBar.visible}
-        onDismiss={()=> setMessageSnackBar({...messageSnackBar, visible: false})}
-        style={{backgroundColor: messageSnackBar.color}}>
+        onDismiss={() => setMessageSnackBar({ ...messageSnackBar, visible: false })}
+        style={{ backgroundColor: messageSnackBar.color }}>
         {messageSnackBar.message}
       </Snackbar>
-      <Text 
+      <Text
         style={styles.textNavigation}
-        onPress={()=>navigation.dispatch(CommonActions.navigate({name:'Login'}))}
-        >¿Ya estas registrado?. Click aquí
+        onPress={() => navigation.dispatch(CommonActions.navigate({ name: 'Login' }))}
+      >¿Ya estas registrado?. Click aquí
       </Text>
     </View>
   );
