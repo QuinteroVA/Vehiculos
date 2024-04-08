@@ -26,8 +26,6 @@ export const styles = StyleSheet.create({
   },
   contentCar: {
     flexDirection: 'row',
-    paddingHorizontal: 10,
-    paddingVertical: 30,
     alignItems: 'center',
   },
   contentHome: {
@@ -43,7 +41,7 @@ export const styles = StyleSheet.create({
   modal: {
     paddingHorizontal: 20,
     paddingVertical: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#efe2ff',
     marginHorizontal: 20,
     borderRadius: 10
   },
@@ -57,15 +55,43 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-end'
   },
   card: {
-    marginBottom: 20,
+    marginBottom: 6,
+    marginTop: 6,
     elevation: 4,
-    borderRadius: 8,
+    borderRadius: 10,
+    backgroundColor: '#efe2ff',
+  },
+  image: {
+    width: '80%',
+    height: '15%',
+    margin: 30,
   },
   imageLogo: {
     width: '80%',
     height: '15%',
     margin: 30,
   },
+  imageCar: {
+
+    width: '80%',
+    height: '150%',
+    margin: 30,
+    padding: 30
+
+  },
+  containerImg: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    resizeMode: 'stretch',
+    paddingVertical: 20
+  },
+  image1: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: '#0553',
+  },
+
   contentDetailCar: {
     flex: 1,
     paddingHorizontal: 20,

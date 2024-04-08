@@ -17,7 +17,8 @@ export const DetailCarScreen = () => {
     id: '',
     brand: '',
     model: '',
-    descriptions: ''
+    descriptions: '',
+    image:'',
   })
   //Hook que carga los datos recibidos en el detailForm
   useEffect(() => {
@@ -31,7 +32,7 @@ export const DetailCarScreen = () => {
   const handlerUpdateCar = async () => {
     //Referencia a la base de datos
     const dbRef = ref(dbRealTime, 'cars/' + detailForm.id)
-    await update(dbRef, { brand: detailForm.brand, model: detailForm.model, descriptions: detailForm.descriptions })
+    await update(dbRef, { brand: detailForm.brand, model: detailForm.model, descriptions: detailForm.descriptions, image: detailForm.image })
     navigation.goBack()
   }
   //Función para eliminar auto
@@ -67,6 +68,12 @@ export const DetailCarScreen = () => {
           onChangeText={(value) => handlerSetDetailForm('descriptions', value)}
           multiline={true}
           numberOfLines={4}
+        />
+        <TextInput
+          label='Imagen'
+          mode='outlined'
+          value={detailForm.image}
+          onChangeText={(value) => handlerSetDetailForm('image', value)}
         />
         <View style={styles.buttons2}>
           <Button style={styles.buttons} mode='contained' icon='update' onPress={() => handlerUpdateCar()}>Actualizar</Button>

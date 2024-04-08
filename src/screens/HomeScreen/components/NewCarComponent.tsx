@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Modal, Portal, Text, IconButton, TextInput, Divider, Button } from 'react-native-paper';
 import { styles } from '../../../theme/styles'
-import { View } from 'react-native';
-import { dbRealTime } from '../../../configs/firebaseConfig';
+import { Image, TouchableOpacity, View } from 'react-native';
+import { dbRealTime, storage } from '../../../configs/firebaseConfig';
 import { push, ref, set } from 'firebase/database';
+import { uploadString, getDownloadURL, ref as storageRef } from 'firebase/storage';
 //Interface indica los props que este componente va a manejar
 interface Props {
   visible: boolean,
@@ -13,6 +14,7 @@ interface CarForm {
   brand: string;
   model: string;
   descriptions: string;
+  image: string;
 }
 
 export const NewCarComponent = ({ visible, setVisible }: Props) => {
@@ -20,7 +22,8 @@ export const NewCarComponent = ({ visible, setVisible }: Props) => {
   const [carForm, setCarForm] = useState<CarForm>({
     brand: '',
     model: '',
-    descriptions: ''
+    descriptions: '',
+    image: '',
   })
   //Función que capture y actualice los valores del formulario
   const handlerSetCarForm = (key: string, value: string) => {
@@ -28,10 +31,10 @@ export const NewCarComponent = ({ visible, setVisible }: Props) => {
   }
   //Función para guardar las cartas
   const handlerSaveCar = async () => {
-    if (!carForm.brand || !carForm.model || !carForm.descriptions) {
+    if (!carForm.brand || !carForm.model || !carForm.descriptions || !carForm.image) {
       return
     }
-    //console.log(carForm)
+
     const dbRef = ref(dbRealTime, 'cars')
     const saveCar = push(dbRef) //ubicación de almacenamiento
     try {
@@ -40,7 +43,8 @@ export const NewCarComponent = ({ visible, setVisible }: Props) => {
       setCarForm({
         descriptions: '',
         model: '',
-        brand: ''
+        brand: '',
+        image: '',
       })
     } catch (e) {
       console.log(e)
@@ -58,21 +62,26 @@ export const NewCarComponent = ({ visible, setVisible }: Props) => {
           </View>
           <Divider bold />
           <TextInput
-            label='Marca: '
+            label='Marca'
             mode='outlined'
             onChangeText={(value) => handlerSetCarForm('brand', value)}
           />
           <TextInput
-            label='Modelo: '
+            label='Modelo '
             mode='outlined'
             onChangeText={(value) => handlerSetCarForm('model', value)}
           />
           <TextInput
-            label='Descripción: '
+            label='Descripción'
             mode='outlined'
             onChangeText={(value) => handlerSetCarForm('descriptions', value)}
             multiline={true}
             numberOfLines={4}
+          />
+          <TextInput
+            label='Imagen'
+            mode='outlined'
+            onChangeText={(value) => handlerSetCarForm('image', value)}
           />
           <View style={styles.buttons2}>
             <Button style={styles.buttons} icon={'content-save-outline'} mode='contained' onPress={() => handlerSaveCar()}>Guardar</Button>

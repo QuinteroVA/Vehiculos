@@ -8,8 +8,9 @@ import { auth, dbRealTime } from '../../configs/firebaseConfig';
 import firebase from 'firebase/auth';
 import { CarCardComponent } from '../../screens/HomeScreen/components/CarCardComponent';
 import { onValue, ref } from 'firebase/database';
-//import { CommonActions, useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import { NewCarComponent } from '../../screens/HomeScreen/components/NewCarComponent';
+//import { WelcomeScreen } from '../WelcomeScreen';
 //Interface que nos ayude a trabajar con los datos del usuario
 interface UserForm {
   name: string,
@@ -19,10 +20,13 @@ export interface Car {
   id: string,
   brand: string,
   model: string,
-  descriptions: string
+  descriptions: string,
+  image: string,
 }
 
 export const HomeScreen = () => {
+  //Hook de navegación
+  const navigation = useNavigation()
   //Hook useState que permite controlar la visibilidad del modal
   const [showModalProfile, setShowModalProfile] = useState(false)
   //Hook useState que ayudará a controlar la visibilidad del modal new car
@@ -65,7 +69,7 @@ export const HomeScreen = () => {
       setCars(listCars)
     });
   };
-  
+
   const [state, setState] = useState({ open: false });
   const onStateChange = ({ open }: any) => setState({ open });
   const { open } = state;
@@ -82,7 +86,7 @@ export const HomeScreen = () => {
   const handlerSignOut = async () => {
     try {
       await signOut(auth);
-      //navigation.dispatch(CommonActions.navigate({ name: 'Welcome' }))
+      navigation.dispatch(CommonActions.navigate({ name: 'Welcome' }))
     } catch (e) {
       console.log(e);
     }

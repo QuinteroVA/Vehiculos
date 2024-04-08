@@ -4,7 +4,7 @@ import { Button, Text, } from "react-native-paper";
 import { styles } from "../theme/styles";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 
-export const WelcomeScreen = () => {
+export const WelcomeScreen = () =>  {
   const navigation = useNavigation()
   return (
     <View style={styles.content}>
